@@ -1,0 +1,19 @@
+- name: be sure {{ nginx_package }} is installed
+  yum: name={{ nginx_package }} state=present
+  notify: restart {{ nginx_service }}
+
+- name: {{ nginx_service }} service must be created
+  template: src=nginx.service.j2 dest=/usr/lib/systemd/system/{{ nginx_service }}.service
+  notify:
+    - restart {{ nginx_service }}
+
+- name: copy common {{ nginx_service }} config
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify: reload {{ nginx_service }}
+
+- name: validate {{ nginx_service }} config
+  command: "{{ nginx_sbin }} -t"
+  changed_when: false
+
+- name: be sure {{ nginx_service }} is running and enabled
+  systemd: name={{ nginx_service }} state=started enabled=yes daemon_reload=yes

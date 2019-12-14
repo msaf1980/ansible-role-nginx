@@ -1,0 +1,27 @@
+nginx_service: "nginx"
+nginx_package: "nginx"
+nginx_version: ""
+nginx_sbin: "/usr/sbin/nginx"
+
+nginx_worker_processes: auto
+nginx_worker_connections: 1024
+nginx_status_enabled: False
+nginx_status_port: 8181
+nginx_sendfile: "on"
+nginx_tcp_nopush: "on"
+nginx_tcp_nodelay: "on"
+nginx_keepalive_timeout: 65
+nginx_types_hash_max_size: 2048
+nginx_merge_slashes: "on"
+nginx_log_format: |-
+  '$remote_addr\t$http_x_real_ip\t$remote_user\t[$time_iso8601]\t$msec\t$request_method\t$host\t$request_uri\t'
+  '$status\t$body_bytes_sent\t"$http_referer"\t'
+  '"$http_user_agent"\t$request_time\t$upstream_response_time'
+nginx_client_max_body_size: "20m"
+nginx_file_limit: 100000
+nginx_restart_sec: "10s"
+nginx_kill_signal: "SIGQUIT"
+nginx_timeout_stop_sec: 5
+nginx_kill_mode: "process"
+nginx_restart: "on-failure"
+nginx_private_tmp: "true"
